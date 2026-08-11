@@ -1,0 +1,1 @@
+this is my first file for linux environment. to learn the basic i am performing ths experiment. i am doing updating to the current existing file. i want to create one more line so that i can see the usage of wc command.
