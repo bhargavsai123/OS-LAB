@@ -1,0 +1,53 @@
+#include <stdio.h>
+int main(){
+	int pages[50], frames[10];
+	int n, f, i, j;
+	int pageFaults = 0, pageHits = 0;
+	int front = 0;
+	int found;
+	printf("Enter the Number of Pages : ");
+	scanf("%d",&n);
+	printf("Enter the page reference string : \n");
+	for(i=0; i < n; i++)
+		scanf("%d",&pages[i]);
+	printf("Enter the number of frames : ");
+	scanf("%d",&f);
+	// Initialize Frames
+	for(i=0;i<f;i++)
+		frames[i] = -1;
+	printf("\nPage\tFrames\tStatus\n");
+	for(i=0;i<n;i++){
+		found=0;
+		// Checks if page is already present
+		for(j=0;j<f;j++){
+			if(frames[j] == pages[i]){
+				found=1;
+				break;
+			}
+		}
+		if(found)
+			pageHits++;
+		else{
+			pageFaults++;
+			// Replace page using FIFO
+			frames[front] = pages[i];
+			front = (front + 1)%f;		
+		}
+		// Display Current Frames
+		printf("%d\t", pages[i]);
+		for(j=0;j<f;j++){
+			if(frames[j] == -1)
+				printf("- ");
+			else
+				printf("%d ",frames[j]);
+		}
+		if(found)
+			printf("\tHit");
+		else
+			printf("\tPage Fault");
+		printf("\n");
+	}
+	printf("\nTotal Page Faults = %d\n", pageFaults);
+	printf("Total Page Hits = %d\n", pageHits);
+	return 0;
+}
